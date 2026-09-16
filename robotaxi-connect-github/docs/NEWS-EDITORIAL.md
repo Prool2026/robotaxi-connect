@@ -21,3 +21,6 @@ Nach Zugriff auf Video/Transkript: eigene kurze Zusammenfassung, relevante Zeitm
 
 ## Veröffentlichung
 Nur Änderungen des News-Bereichs übernehmen. Die separaten lokalen Rechtsentwürfe sind noch nicht freigegeben und dürfen nicht versehentlich in den Release kopiert werden. Typecheck sowie Desktop/Mobilansicht und Archivlinks prüfen. Bestehende Betreiber-/Netzwerkzugriffsregeln nicht verändern.
+
+## Ergänzung vom 16.09.2026: Videoauswertung
+Der Nutzer hat für Fraunhofer IEM eine Inhaltszusammenfassung und für Tesla Welt ein vollständiges ASR-Transkript bereitgestellt. Redaktionelle DE/EN-Auswertung in src/components/video-analysis.tsx; öffentlich als jeweilige Grundlage gekennzeichnet. Tesla Support (FSD, Cybercab) und NHTSA-Mitteilung vom 25.06.2026 gegengeprüft. Technikdetails ohne Originalbeleg bleiben Videoaussagen. 17,5 % beziehen sich rechnerisch auf kumulierte Meilen, nicht Flottengröße; 500.000 Meilen entsprechen rund 805.000 km. Private Rohtexte nicht in Release/GitHub kopieren. Frühere vorläufige Themenüberblicke werden durch diese datierte Ergänzung ersetzt.
