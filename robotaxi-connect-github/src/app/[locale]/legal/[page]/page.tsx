@@ -3,6 +3,7 @@ import { brand } from '@/config/brand';
 import { PublicHeader, PublicFooter } from '@/components/public-layout';
 import { localeOf } from '@/lib/domain';
 import { messages } from '@/i18n/messages';
+import { Imprint } from '@/components/imprint';
 export default async function Legal({
   params,
 }: {
@@ -20,14 +21,14 @@ export default async function Legal({
   return (
     <>
       <PublicHeader locale={locale} />
-      <main id="main" className="container legal-page">
+      {page === 'imprint' ? <Imprint locale={locale} /> : <main id="main" className="container legal-page">
         <p className="eyebrow">{brand.name}</p>
         <h1>{data[0]}</h1>
         <div className="notice warning">{m.legalPlaceholder}</div>
         <p>{data[1]}</p>
         <p>{brand.legalName || m.notSet}</p>
         {brand.supportEmail && <a href={`mailto:${brand.supportEmail}`}>{brand.supportEmail}</a>}
-      </main>
+      </main>}
       <PublicFooter locale={locale} />
     </>
   );
