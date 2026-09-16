@@ -38,7 +38,7 @@ export function Imprint({ locale }: { locale: 'de' | 'en' }) {
         <div className="operator-address">
           <h3>Sebastian Neumeier</h3>
           <p>{en ? 'Sole proprietor' : 'Einzelunternehmer'}</p>
-          <address>Leinenbrunnen 12<br />71082 Herrenberg<br />{en ? 'Germany' : 'Deutschland'}</address>
+          <address>Leinenbrunnen 12<br />71083 Herrenberg<br />{en ? 'Germany' : 'Deutschland'}</address>
           <dl>
             <div><dt>{en ? 'Phone' : 'Telefon'}</dt><dd><a href="tel:+491778333142">+49 177 8333142</a></dd></div>
             <div><dt>{en ? 'Email' : 'E-Mail'}</dt><dd><a href="mailto:info@robotaxi-connect.de">info@robotaxi-connect.de</a></dd></div>

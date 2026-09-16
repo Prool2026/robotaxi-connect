@@ -28,6 +28,7 @@ export function PublicHeader({ locale }: { locale: Locale }) {
             <Link href={`/${locale}#operators`}>{m.operators}</Link>
             <Link href={`/${locale}#process`}>{m.process}</Link>
             <Link href={`/${locale}#providers`}>{m.providers}</Link>
+            <Link href={`/${locale}/developments`}>{locale === 'de' ? 'Die neuesten Entwicklungen' : 'Latest developments'}</Link>
           </nav>
           <div className="header-actions">
             <LocaleSwitch locale={locale} />
@@ -38,6 +39,9 @@ export function PublicHeader({ locale }: { locale: Locale }) {
           </div>
         </div>
       </header>
+      <nav className="mobile-news-nav" aria-label={locale === 'de' ? 'Aktuelles' : 'News'}>
+        <Link href={`/${locale}/developments`}>{locale === 'de' ? 'Die neuesten Entwicklungen' : 'Latest developments'} <ArrowUpRight size={14} /></Link>
+      </nav>
     </>
   );
 }
