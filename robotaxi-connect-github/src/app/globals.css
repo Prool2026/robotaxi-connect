@@ -2,6 +2,15 @@
 @source '../';
 /* Public editorial archive */
 .mobile-news-nav { display: none; }
+.mobile-news-nav a + a { margin-top: 10px; }
+.guide-page { max-width: 900px; padding-top: 30px; padding-bottom: 80px; }
+.guide-page h1 { font-size: clamp(32px, 4vw, 54px); line-height: 1.15; letter-spacing: -1.5px; margin: 20px 0; }
+.guide-page h2 { font-size: 26px; line-height: 1.25; font-weight: 400; }
+.guide-answer { background: #e4ecd9; border-radius: 16px; padding: 28px; margin: 32px 0; }
+.guide-section { padding: 26px 0; border-bottom: 1px solid var(--line); }
+.guide-section li { margin: 10px 0; }
+.guide-section ul { padding-left: 22px; }
+.guide-section summary { cursor: pointer; }
 .developments-page { padding-top: 64px; padding-bottom: 80px; }
 .news-hero { display: grid; grid-template-columns: 1.7fr 1fr; gap: 64px; align-items: center; padding-bottom: 56px; }
 .news-hero h1 { font-size: clamp(36px, 5vw, 66px); line-height: 1.06; letter-spacing: -2px; max-width: 760px; margin: 20px 0; }

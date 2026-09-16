@@ -26,7 +26,7 @@ export function PublicHeader({ locale }: { locale: Locale }) {
           </Link>
           <nav className="public-nav" aria-label={m.overview}>
             <Link href={`/${locale}#operators`}>{m.operators}</Link>
-            <Link href={`/${locale}#process`}>{m.process}</Link>
+            <Link href={`/${locale}/wissen`}>{locale === 'de' ? 'Wissen & FAQ' : 'Guides & FAQ'}</Link>
             <Link href={`/${locale}#providers`}>{m.providers}</Link>
             <Link href={`/${locale}/developments`}>{locale === 'de' ? 'Die neuesten Entwicklungen' : 'Latest developments'}</Link>
           </nav>
@@ -40,6 +40,7 @@ export function PublicHeader({ locale }: { locale: Locale }) {
         </div>
       </header>
       <nav className="mobile-news-nav" aria-label={locale === 'de' ? 'Aktuelles' : 'News'}>
+        <Link href={`/${locale}/wissen`}>{locale === 'de' ? 'Wissen & FAQ' : 'Guides & FAQ'} <ArrowUpRight size={14} /></Link>
         <Link href={`/${locale}/developments`}>{locale === 'de' ? 'Die neuesten Entwicklungen' : 'Latest developments'} <ArrowUpRight size={14} /></Link>
       </nav>
     </>
@@ -56,6 +57,7 @@ export function PublicFooter({ locale }: { locale: Locale }) {
         <p>{m.copyright}</p>
       </div>
       <nav aria-label={m.imprint}>
+        <Link href={`/${locale}/wissen`}>{locale === 'de' ? 'Wissen & FAQ' : 'Guides & FAQ'}</Link>
         <Link href={`/${locale}/legal/imprint`}>{m.imprint}</Link>
         <Link href={`/${locale}/legal/privacy`}>{m.privacy}</Link>
         <Link href={`/${locale}/legal/terms`}>{m.terms}</Link>
