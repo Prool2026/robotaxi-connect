@@ -2,6 +2,32 @@
 @source '../';
 /* Public editorial archive */
 .mobile-news-nav { display: none; }
+.gateway-hero { padding-top: 70px; padding-bottom: 40px; text-align: center; }
+.gateway-hero h1 { font-size: clamp(36px, 4.7vw, 66px); font-weight: 400; line-height: 1.08; letter-spacing: -2px; margin: 24px auto; }
+.gateway-intro { max-width: 740px; margin: 0 auto 38px; color: var(--muted); font-size: 17px; }
+.gateway-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; text-align: left; }
+.gateway-choices article { padding: 30px; background: #e4ecd9; border-radius: 18px; display: flex; flex-direction: column; align-items: flex-start; }
+.gateway-choices article + article { background: #edf0e9; }
+.gateway-choices .eyebrow { margin-top: 22px; }
+.gateway-choices h2 { font-size: 28px; font-weight: 400; line-height: 1.2; margin: 8px 0; }
+.gateway-choices .button { margin-top: 14px; white-space: normal; text-align: left; }
+.gateway-choices .text-link, .gateway-choices .news-video-note { margin-top: 18px; }
+.gateway-note { margin: 28px auto 0; font-size: 12px; color: var(--muted); }
+.gateway-knowledge { padding-top: 40px; padding-bottom: 45px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; border-top: 1px solid var(--line); }
+.gateway-knowledge h2 { font-size: 34px; line-height: 1.2; font-weight: 400; }
+.gateway-knowledge .text-link { margin: 10px 20px 0 0; }
+.gateway-about { padding-top: 25px; padding-bottom: 45px; border-top: 1px solid var(--line); }
+.gateway-about p { max-width: 800px; color: var(--muted); }
+.audience-page { padding-top: 60px; padding-bottom: 60px; }
+.audience-page h1 { font-size: clamp(34px, 4vw, 58px); line-height: 1.12; max-width: 900px; letter-spacing: -1.5px; margin: 22px 0; }
+.audience-intro { max-width: 800px; font-size: 18px; margin-bottom: 28px; color: var(--muted); }
+.provider-layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: start; margin-top: 40px; }
+.provider-layout li { margin-bottom: 20px; }
+.provider-inquiry { border: 1px solid var(--line); padding: 28px; border-radius: 16px; background: white; }
+.provider-inquiry label { display: block; margin-top: 18px; font-size: 13px; }
+.provider-inquiry input, .provider-inquiry textarea { display: block; width: 100%; border: 1px solid var(--line); border-radius: 5px; padding: 10px; margin-top: 5px; }
+.provider-inquiry .button { white-space: normal; }
+@media(max-width: 900px) { .gateway-hero { padding-top: 40px; } .gateway-choices, .gateway-knowledge, .provider-layout { grid-template-columns: 1fr; gap: 22px; } .gateway-choices article { padding: 24px; } .gateway-hero h1 br { display: none; } }
 .mobile-news-nav a + a { margin-top: 10px; }
 .guide-page { max-width: 900px; padding-top: 30px; padding-bottom: 80px; }
 .guide-page h1 { font-size: clamp(32px, 4vw, 54px); line-height: 1.15; letter-spacing: -1.5px; margin: 20px 0; }

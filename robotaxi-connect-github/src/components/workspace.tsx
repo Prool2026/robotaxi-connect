@@ -86,7 +86,7 @@ export function Workspace({
         <div className="sidebar-bottom">
           <small>{admin ? m.admin : m.portal}</small>
           <strong>{name}</strong>
-          <Link className="logout-button" href={`/${locale}#contact`}>
+          <Link className="logout-button" href="mailto:info@robotaxi-connect.de">
             <CircleHelp size={15} />
             {m.contact}
           </Link>

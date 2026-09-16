@@ -4,6 +4,7 @@ import { brand } from '@/config/brand';
 import type { Locale } from '@/lib/domain';
 import { messages } from '@/i18n/messages';
 import { LocaleSwitch } from './locale-switch';
+import { RouteScroll } from './route-scroll';
 export function Brand({ small = false }: { small?: boolean }) {
   return (
     <span className={`brand ${small ? 'brand-small' : ''}`}>
@@ -16,6 +17,7 @@ export function PublicHeader({ locale }: { locale: Locale }) {
   const m = messages[locale];
   return (
     <>
+      <RouteScroll />
       <a className="skip-link" href="#main">
         {m.skip}
       </a>
@@ -25,9 +27,9 @@ export function PublicHeader({ locale }: { locale: Locale }) {
             <Brand />
           </Link>
           <nav className="public-nav" aria-label={m.overview}>
-            <Link href={`/${locale}#operators`}>{m.operators}</Link>
+            <Link href={`/${locale}/taxiunternehmen`}>{locale === 'de' ? 'Für Taxiunternehmen' : 'For taxi businesses'}</Link>
             <Link href={`/${locale}/wissen`}>{locale === 'de' ? 'Wissen & FAQ' : 'Guides & FAQ'}</Link>
-            <Link href={`/${locale}#providers`}>{m.providers}</Link>
+            <Link href={`/${locale}/technologieunternehmen`}>{m.providers}</Link>
             <Link href={`/${locale}/developments`}>{locale === 'de' ? 'Die neuesten Entwicklungen' : 'Latest developments'}</Link>
           </nav>
           <div className="header-actions">
@@ -40,6 +42,8 @@ export function PublicHeader({ locale }: { locale: Locale }) {
         </div>
       </header>
       <nav className="mobile-news-nav" aria-label={locale === 'de' ? 'Aktuelles' : 'News'}>
+        <Link href={`/${locale}/taxiunternehmen`}>{locale === 'de' ? 'Für Taxiunternehmen' : 'For taxi businesses'} <ArrowUpRight size={14} /></Link>
+        <Link href={`/${locale}/technologieunternehmen`}>{m.providers} <ArrowUpRight size={14} /></Link>
         <Link href={`/${locale}/wissen`}>{locale === 'de' ? 'Wissen & FAQ' : 'Guides & FAQ'} <ArrowUpRight size={14} /></Link>
         <Link href={`/${locale}/developments`}>{locale === 'de' ? 'Die neuesten Entwicklungen' : 'Latest developments'} <ArrowUpRight size={14} /></Link>
       </nav>
@@ -61,7 +65,7 @@ export function PublicFooter({ locale }: { locale: Locale }) {
         <Link href={`/${locale}/legal/imprint`}>{m.imprint}</Link>
         <Link href={`/${locale}/legal/privacy`}>{m.privacy}</Link>
         <Link href={`/${locale}/legal/terms`}>{m.terms}</Link>
-        <a href={`/${locale}#contact`}>{m.contact}</a>
+        <a href="mailto:info@robotaxi-connect.de">{m.contact}</a>
       </nav>
       <span className="footer-year">
         © {new Date().getFullYear()} {brand.name}
