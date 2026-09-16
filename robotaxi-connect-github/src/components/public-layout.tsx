@@ -4,7 +4,6 @@ import { brand } from '@/config/brand';
 import type { Locale } from '@/lib/domain';
 import { messages } from '@/i18n/messages';
 import { LocaleSwitch } from './locale-switch';
-import { RouteScroll } from './route-scroll';
 export function Brand({ small = false }: { small?: boolean }) {
   return (
     <span className={`brand ${small ? 'brand-small' : ''}`}>
@@ -17,7 +16,6 @@ export function PublicHeader({ locale }: { locale: Locale }) {
   const m = messages[locale];
   return (
     <>
-      <RouteScroll />
       <a className="skip-link" href="#main">
         {m.skip}
       </a>
