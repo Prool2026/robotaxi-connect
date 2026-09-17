@@ -13,6 +13,7 @@ export default async function CompanyRegistration({
   const m = messages[locale];
   const identity = await requireIdentity(locale);
   if (isAdmin(identity.profile.role)) redirect(`/${locale}/admin`);
+  if (identity.profile.role === 'PROVIDER_USER') redirect(`/${locale}/anbieter`);
   const { data } = await identity.db
     .from('company_members')
     .select('company_id')
@@ -27,6 +28,7 @@ export default async function CompanyRegistration({
         <h1>{m.companyTitle}</h1>
         <p>{m.companyBody}</p>
         <CompanyForm locale={locale} />
+        <a href={`/${locale}/konto`}>{locale === 'de' ? 'Mein Konto: Passwort, Kontaktdaten und Löschung' : 'My account: password, contact details and deletion'}</a>
       </main>
       <PublicFooter locale={locale} />
     </>

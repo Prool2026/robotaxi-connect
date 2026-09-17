@@ -97,7 +97,7 @@ export function CompanyForm({
             autoComplete="tel"
             max={50}
           />
-          {admin && (
+          {(admin || company) && (
             <Field
               name="email"
               locale={locale}

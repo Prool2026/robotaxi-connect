@@ -33,6 +33,7 @@ export async function requireAdmin(locale: Locale) {
 export async function requireCompany(locale: Locale) {
   const identity = await requireIdentity(locale);
   if (isAdmin(identity.profile.role)) redirect(`/${locale}/admin`);
+  if (identity.profile.role === 'PROVIDER_USER') redirect(`/${locale}/anbieter`);
   const { data: member } = await identity.db
     .from('company_members')
     .select('company_id')

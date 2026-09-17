@@ -1,4 +1,4 @@
-export const legalVersion = '2026-09-17-v1';
+export const legalVersion = '2026-09-17-v2';
 export const legalContent = {
   "de": {
     "privacy": {
@@ -24,7 +24,8 @@ export const legalContent = {
             "Für Ihr Benutzerkonto verarbeiten wir Vorname, Nachname, geschäftliche E-Mail-Adresse, Sprache und die für Anmeldung, E-Mail-Bestätigung und Passwortwiederherstellung erforderlichen Authentifizierungsdaten. Die Authentifizierung erfolgt über Supabase.",
             "Das Firmenprofil enthält Unternehmensname, Anschrift, geschäftliche Kontaktdaten, gegebenenfalls Website, Unternehmenstyp, Flottengröße, Ausbaupotenzial, Zeitrahmen und Anforderungen. Hinzu kommen die Zuordnung von Benutzern zum Unternehmen sowie Freigabe- und Bearbeitungsstatus.",
             "Soweit Sie selbst unser Vertragspartner sind, dient die erforderliche Verarbeitung der Vertragsdurchführung bzw. vorvertraglichen Maßnahmen nach Art. 6 Abs. 1 lit. b DSGVO. Daten von Beschäftigten und anderen Ansprechpartnern verarbeiten wir auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO zur Durchführung der angefragten geschäftlichen Zusammenarbeit. Ohne die als erforderlich gekennzeichneten Angaben können wir das jeweilige Konto bzw. Firmenprofil nicht bereitstellen.",
-            "Bei der Registrierung werden außerdem die akzeptierte Fassung der Nutzungsbedingungen und Datenschutzhinweise sowie der Zeitpunkt der Bestätigung gespeichert. Dies dient der Dokumentation der geschäftlichen Vereinbarung; die Kenntnisnahme der Datenschutzhinweise ist keine pauschale Einwilligung in weitere Datenverarbeitungen."
+            "Bei der Registrierung werden außerdem die akzeptierte Fassung der Nutzungsbedingungen und Datenschutzhinweise sowie der Zeitpunkt der Bestätigung gespeichert. Dies dient der Dokumentation der geschäftlichen Vereinbarung; die Kenntnisnahme der Datenschutzhinweise ist keine pauschale Einwilligung in weitere Datenverarbeitungen.",
+            "Technologieunternehmen können ein eigenes Konto mit Firmenname, Kontaktdaten, Anschrift, Website, Beschreibung ihrer Lösung und Zielmärkten anlegen. Dieser Bereich zeigt ausschließlich das eigene Anbieterprofil und eröffnet keinen Zugang zu Taxiunternehmen oder dem internen Netzwerk."
           ]
         },
         {
@@ -64,7 +65,7 @@ export const legalContent = {
           "title": "8. Speicherung und Löschung",
           "paragraphs": [
             "Konto- und Profildaten werden für die Dauer der angefragten Zusammenarbeit benötigt. Nach deren Ende ist zu prüfen, welche Daten zu löschen sind und welche aufgrund gesetzlicher Aufbewahrungspflichten (Art. 6 Abs. 1 lit. c DSGVO) oder zur Geltendmachung bzw. Verteidigung von Ansprüchen (Art. 6 Abs. 1 lit. f DSGVO) noch erforderlich sind. Eine solche weitere Nutzung ist auf den jeweiligen Zweck zu beschränken.",
-            "Sie können im Portal eine Löschung anfragen oder sich per E-Mail an uns wenden. Eine Deaktivierung sperrt den Kontozugang, bewirkt aber noch keine vollständige Löschung. Löschanfragen werden manuell bearbeitet und umfassen die Prüfung zugehöriger Dokumente und Sicherungskopien. Maßgeblich sind das Ende des Verarbeitungszwecks, bestehende Aufbewahrungspflichten und gegebenenfalls die Dauer offener Ansprüche. Soweit Daten weiter aufzubewahren sind, wird ihre Nutzung auf diesen Zweck beschränkt. Sicherungskopien dienen ausschließlich der Wiederherstellung; bei einer Wiederherstellung sind bereits veranlasste Löschungen erneut zu berücksichtigen."
+            "Im Kontobereich können Sie nach Bestätigung mit Ihrem aktuellen Passwort Ihr Konto endgültig löschen. Dabei werden der Anmeldezugang und Ihr persönliches Profil aus dem aktiven System entfernt. Wenn Sie der letzte Benutzer eines Taxiunternehmens sind, werden auch dessen Plattformdaten und Dateien gelöscht. Bestehen weitere Benutzer, bleiben die gemeinsamen Unternehmensdaten bestehen; Ihre Benutzerzuordnung wird entfernt. Anbieterprofile werden mit dem zugehörigen Konto gelöscht. Bereits an Empfänger versendete E-Mails und Sicherungskopien der Dienstleister werden durch diese Aktion nicht sofort entfernt. Bei Wiederherstellungen müssen bereits veranlasste Löschungen erneut berücksichtigt werden. Sie können zusätzliche Datenschutzanfragen weiterhin per E-Mail stellen. Gesetzlich erforderliche Geschäftsunterlagen außerhalb des Benutzerkontos unterliegen ihren jeweiligen Aufbewahrungspflichten."
           ]
         },
         {
@@ -142,7 +143,7 @@ export const legalContent = {
         {
           "title": "8. Beendigung und Daten",
           "paragraphs": [
-            "Nutzer können die Plattformnutzung jederzeit beenden und die Deaktivierung ihres Kontos bzw. die Löschung ihrer Daten anfragen. Die Bearbeitung richtet sich nach den Datenschutzhinweisen und gesetzlichen Pflichten. Eine Deaktivierung ersetzt keine vollständige Datenlöschung.",
+            "Sie können sich jederzeit abmelden, ohne das Konto zu löschen. Die gesonderte Funktion „Konto endgültig löschen“ entfernt nach Passwortbestätigung den Zugang und die zugeordneten Daten im beschriebenen Umfang. Bei mehreren Nutzern eines Unternehmens bleiben die gemeinsamen Firmendaten für die übrigen Nutzer bestehen. Die Einzelheiten ergeben sich aus den Datenschutzhinweisen. Gesetzliche Aufbewahrungspflichten für gesonderte Geschäftsunterlagen bleiben unberührt.",
             "Gesonderte Verträge mit Technologieanbietern oder anderen Beteiligten enden nicht allein durch die Schließung eines Plattformkontos. Bestehende gesetzliche oder individuell vereinbarte Pflichten bleiben unberührt."
           ]
         },
@@ -180,7 +181,8 @@ export const legalContent = {
             "Accounts involve first and last name, business email address, language and authentication data required for login, email confirmation and password recovery. Authentication is provided by Supabase.",
             "Company profiles contain name, address, business contact details, optional website, company type, fleet size, expansion potential, time frame and requirements, together with user membership and review status.",
             "Where you are personally our contracting party, necessary processing is based on Article 6(1)(b) GDPR for contractual or pre-contractual purposes. Business contact data of employees and representatives is processed under Article 6(1)(f) GDPR for the requested business relationship. Required account or profile features cannot be provided without the necessary information.",
-            "Registration also records the version of the terms and privacy notice acknowledged and the confirmation time to document the business agreement. Acknowledging the privacy notice is not blanket consent to additional processing."
+            "Registration also records the version of the terms and privacy notice acknowledged and the confirmation time to document the business agreement. Acknowledging the privacy notice is not blanket consent to additional processing.",
+            "Technology companies may create an account with their company name, contact details, address, website, solution and target markets. This area shows only their own provider profile and provides no access to taxi businesses or the internal network."
           ]
         },
         {
@@ -220,7 +222,7 @@ export const legalContent = {
           "title": "8. Retention and deletion",
           "paragraphs": [
             "Account and profile information is needed for the requested business relationship. Afterwards, data must be assessed for deletion or continued retention under statutory obligations (Article 6(1)(c) GDPR) or for legal claims (Article 6(1)(f)). Further use must be limited to the relevant purpose.",
-            "You may request deletion in the portal or by email. Deactivation blocks access but does not itself delete all data. Deletion requests are handled manually, including related documents and backups. Retention depends on the end of the processing purpose, applicable statutory retention duties and any outstanding claims. Data retained for these reasons is restricted to that purpose. Backups serve recovery only; when restoring data, previously requested deletions must be applied again."
+            "You can permanently delete your account after confirming with your current password. This removes your login and personal profile from the active system. If you are the last user of a taxi company, its platform data and files are also deleted. Shared company data remains when other users exist; your membership is removed. Provider profiles are deleted with their accounts. Emails already sent to recipients and provider backups are not immediately removed by this action. Previously requested deletions must be reapplied after restoration. You may continue to send additional privacy requests by email. Business documents held outside the user account that are subject to statutory retention duties remain subject to those duties."
           ]
         },
         {
@@ -298,7 +300,7 @@ export const legalContent = {
         {
           "title": "8. Ending use",
           "paragraphs": [
-            "Users may stop using the platform and request account deactivation or data deletion at any time. Handling follows the privacy notice and statutory obligations. Deactivation is not complete deletion.",
+            "You can sign out at any time without deleting your account. The separate permanent deletion function removes your login and associated data as described after password confirmation. If a company has multiple users, shared company data remains for the others. See the privacy notice for details. Statutory retention duties for separate business records remain unaffected.",
             "Separate agreements with providers or other parties do not end automatically with a platform account. Existing statutory or individually agreed obligations remain unaffected."
           ]
         },

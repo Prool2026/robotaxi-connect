@@ -12,6 +12,7 @@ test('PostgreSQL migrations, tenant isolation and business transactions', async 
       create schema auth; create schema storage;
       create table auth.users(id uuid primary key,email text,email_confirmed_at timestamptz,raw_user_meta_data jsonb default '{}');
       create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$;
+      create function auth.jwt() returns jsonb language sql stable as $$ select coalesce(nullif(current_setting('request.jwt.claims',true),''),'{}')::jsonb $$;
       grant usage on schema auth,storage,public to anon,authenticated,service_role;
       grant execute on function auth.uid() to anon,authenticated,service_role;
       create table storage.buckets(id text primary key,name text,public boolean,file_size_limit bigint,allowed_mime_types text[]);
@@ -550,6 +551,70 @@ test('PostgreSQL migrations, tenant isolation and business transactions', async 
         );
       },
     );
+    async function withPassword<T>(id:string, operation:()=>Promise<T>) {
+      return asUser(id, async()=>{
+        await db.query("select set_config('request.jwt.claims',$1,true)",[JSON.stringify({amr:[{method:'password',timestamp:Math.floor(Date.now()/1000)}]})]);
+        return operation();
+      });
+    }
+    await t.test('provider registration cannot choose admin; providers see only their own profile', async()=>{
+      const tech=crypto.randomUUID();
+      await db.query('insert into auth.users(id,email,email_confirmed_at,raw_user_meta_data) values($1,$2,now(),$3)',[tech,'tech@example.test',JSON.stringify({account_type:'technology',role:'ADMIN'})]);
+      assert.equal((await db.query<{role:string}>('select role from profiles where id=$1',[tech])).rows[0].role,'PROVIDER_USER');
+      await asUser(tech,()=>rpc('save_provider_account',{company_name:'Tech Ltd',email:'tech@example.test',solution:'Autonomy'}));
+      await asUser(providerUser, async()=>assert.equal((await db.query('select * from provider_accounts')).rows.length,0));
+      await asUser(tech, async()=>{
+        assert.equal((await db.query('select * from provider_accounts')).rows.length,1);
+        assert.equal((await db.query('select * from companies')).rows.length,0);
+        assert.equal((await db.query('select * from providers')).rows.length,0);
+      });
+      await assert.rejects(()=>asUser(tech,()=>db.query('select prepare_account_deletion()')),/REAUTH_REQUIRED/);
+      await assert.rejects(()=>withPassword(admin,()=>db.query('select prepare_account_deletion()')),/FORBIDDEN/);
+      await withPassword(tech,()=>db.query('select prepare_account_deletion()'));
+      await withPassword(tech,()=>db.query('select finish_account_deletion()'));
+      assert.equal((await db.query('select * from auth.users where id=$1',[tech])).rows.length,0);
+      assert.equal((await db.query('select * from provider_accounts where user_id=$1',[tech])).rows.length,0);
+      await assert.rejects(()=>withPassword(tech,()=>db.query('select prepare_account_deletion()')),/FORBIDDEN/);
+    });
+    await t.test('erasure requires storage API cleanup and removes company records without touching another company',async()=>{
+      // A contains real referral snapshots, contracts, files and audit entries from the scenarios above.
+      const before=(await db.query('select * from companies where id=$1',[b])).rows;
+      await withPassword(userA,()=>db.query('select prepare_account_deletion()'));
+      await assert.rejects(()=>asUser(userA,()=>db.query('select account_deletion_files($1)',[userA])),/permission denied/);
+      const manifest=await asUser('',()=>db.query<{account_deletion_files:string[]}>('select account_deletion_files($1)',[userA]),'service_role');
+      assert.ok(manifest.rows[0].account_deletion_files.length>0);
+      await assert.rejects(()=>withPassword(userA,()=>db.query('select finish_account_deletion()')),/FILES_REMAIN/);
+      await assert.rejects(()=>asUser(admin,()=>db.query("insert into storage.objects(bucket_id,name) values('company-files',$1)",[`companies/${a}/documents/new.pdf`])),/ACCOUNT_DELETION_IN_PROGRESS/);
+      await asUser(userB,async()=>{
+        await db.query("delete from storage.objects where bucket_id='company-files' and name like $1",[`companies/${a}/%`]);
+      });
+      assert.ok((await db.query('select * from storage.objects where name like $1',[`companies/${a}/%`])).rows.length>0);
+      // Users gain no additional read access to internal files. The Edge Function removes them through Storage API.
+      await asUser(userA,async()=>assert.equal((await db.query('select * from storage.objects')).rows.length,0));
+      await db.query("delete from storage.objects where bucket_id='company-files' and name like $1",[`companies/${a}/%`]);
+      await withPassword(userA,()=>db.query('select finish_account_deletion()'));
+      for(const table of ['auth.users','public.profiles']) assert.equal((await db.query(`select * from ${table} where id=$1`,[userA])).rows.length,0);
+      assert.equal((await db.query('select * from companies where id=$1',[a])).rows.length,0);
+      for(const table of ['documents','contracts','referrals','audit_logs','email_logs']) assert.equal((await db.query(`select * from ${table} where company_id=$1`,[a])).rows.length,0,table);
+      assert.deepEqual((await db.query('select * from companies where id=$1',[b])).rows,before);
+      await asUser(userA,async()=>assert.equal((await db.query('select * from companies')).rows.length,0));
+    });
+    await t.test('shared company survives deletion of one account; final member removes the company',async()=>{
+      const other=crypto.randomUUID();
+      await db.query('insert into auth.users(id,email,email_confirmed_at) values($1,$2,now())',[other,'other@example.test']);
+      await asUser(admin,()=>db.query('select add_company_member($1,$2)',[b,'other@example.test']));
+      await withPassword(userB,()=>db.query('select prepare_account_deletion()'));
+      await withPassword(userB,()=>db.query('select finish_account_deletion()'));
+      assert.equal((await db.query('select * from companies where id=$1',[b])).rows.length,1);
+      await asUser(other,async()=>assert.equal((await db.query('select * from companies')).rows.length,1));
+      await withPassword(other,()=>db.query('select prepare_account_deletion()'));
+      await withPassword(other,()=>db.query('select finish_account_deletion()'));
+      assert.equal((await db.query('select * from companies where id=$1',[b])).rows.length,1);
+      const extra=(await db.query<{id:string}>("select id from auth.users where email='extra@example.test'")).rows[0].id;
+      await withPassword(extra,()=>db.query('select prepare_account_deletion()'));
+      await withPassword(extra,()=>db.query('select finish_account_deletion()'));
+      assert.equal((await db.query('select * from companies where id=$1',[b])).rows.length,0);
+    });
   } finally {
     await db.close();
   }

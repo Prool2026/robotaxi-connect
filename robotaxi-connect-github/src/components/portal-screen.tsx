@@ -1,3 +1,4 @@
+import { AccountSettings } from './account-settings';
 import Link from 'next/link';
 import { ArrowUpRight, CarFront, GitBranch, FileText, Download, ShieldCheck } from 'lucide-react';
 import type { PortalData } from '@/lib/data';
@@ -218,72 +219,7 @@ export function PortalScreen({
       ) : (
         <>
           <PageHeading title={m.accountTitle} body={m.accountBody} />
-          <Panel>
-            <div className="panel-body">
-              <div className="account-card">
-                <ActionForm
-                  action={profileAction.bind(null, locale)}
-                  locale={locale}
-                  disabled={demo}
-                >
-                  <div className="form-grid">
-                    <Field name="first_name" locale={locale} value={profile.first_name} required />
-                    <Field name="last_name" locale={locale} value={profile.last_name} required />
-                    <Field
-                      name="locale"
-                      labelKey="language"
-                      locale={locale}
-                      choices={[
-                        { value: 'de', label: 'Deutsch' },
-                        { value: 'en', label: 'English' },
-                      ]}
-                      value={profile.locale}
-                    />
-                  </div>
-                </ActionForm>
-              </div>
-              <div className="account-card">
-                <h3>{m.password}</h3>
-                <Link className="button secondary" href={`/${locale}/forgot-password`}>
-                  {m.resetTitle}
-                </Link>
-              </div>
-              <div className="account-card">
-                <h3>{m.exportData}</h3>
-                <p>{m.exportBody}</p>
-                {!demo && (
-                  <a className="button secondary" href={`/api/export?locale=${locale}`}>
-                    <Download size={15} />
-                    {m.download}
-                  </a>
-                )}
-              </div>
-              <div className="account-card">
-                <h3>{m.deleteRequest}</h3>
-                <p>{m.deleteBody}</p>
-                <ActionForm
-                  action={privacyAction.bind(null, locale, 'DELETE')}
-                  locale={locale}
-                  submit="deleteRequest"
-                  disabled={demo}
-                >
-                  {null}
-                </ActionForm>
-              </div>
-              <div className="account-card">
-                <h3>{m.deactivate}</h3>
-                <p>{m.deactivateBody}</p>
-                <ActionForm
-                  action={privacyAction.bind(null, locale, 'DEACTIVATE')}
-                  locale={locale}
-                  submit="deactivate"
-                  disabled={demo}
-                >
-                  <Checkbox name="confirm" locale={locale} text="confirmDeactivate" required />
-                </ActionForm>
-              </div>
-            </div>
-          </Panel>
+          <fieldset disabled={demo}><AccountSettings locale={locale} profile={profile} email={c.email} /></fieldset>
         </>
       )}
     </Workspace>

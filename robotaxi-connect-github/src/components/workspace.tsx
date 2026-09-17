@@ -45,6 +45,7 @@ export function Workspace({
         ['companies', 'companies', Building2],
         ['contacts', 'contacts', UsersRound],
         ['providers', 'providerManagement', Network],
+        ['provider-accounts', 'providerManagement', UsersRound],
         ['referrals', 'referrals', GitBranch],
         ['contracts', 'contracts', FileText],
         ['documents', 'documents', FolderOpen],
@@ -79,7 +80,7 @@ export function Workspace({
               aria-current={active === path ? 'page' : undefined}
             >
               <Icon size={17} />
-              {m[key]}
+              {path === 'provider-accounts' ? (locale === 'de' ? 'Anbieterregistrierungen' : 'Provider registrations') : m[key]}
             </Link>
           ))}
         </nav>

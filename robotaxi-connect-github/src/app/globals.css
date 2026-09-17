@@ -2,6 +2,14 @@
 @source '../';
 /* Public editorial archive */
 .mobile-news-nav { display: none; }
+.account-settings { max-width: 820px; }
+.account-settings .account-card { padding: 28px 0; border-bottom: 1px solid var(--line); }
+.account-settings h2 { font-size: 24px; }
+.account-settings .field { margin-bottom: 16px; }
+.account-settings input, .account-settings textarea { width: 100%; }
+.account-settings input[type=checkbox] { width: auto; }
+.account-danger { border: 1px solid #c38b83; border-radius: 12px; padding: 24px !important; margin-top: 24px; }
+.button.danger { background: #8f3026; color: white; }
 .gateway-hero { padding-top: 70px; padding-bottom: 40px; text-align: center; }
 .gateway-hero h1 { font-size: clamp(36px, 4.7vw, 66px); font-weight: 400; line-height: 1.08; letter-spacing: -2px; margin: 24px auto; }
 .gateway-intro { max-width: 740px; margin: 0 auto 38px; color: var(--muted); font-size: 17px; }

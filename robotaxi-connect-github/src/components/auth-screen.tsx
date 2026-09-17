@@ -11,9 +11,11 @@ import type { Locale } from '@/lib/domain';
 export function AuthScreen({
   locale,
   mode,
+  accountType = 'taxi',
 }: {
   locale: Locale;
   mode: 'register' | 'login' | 'forgot' | 'reset';
+  accountType?: 'taxi' | 'technology';
 }) {
   const m = messages[locale];
   const register = mode === 'register';
@@ -40,7 +42,7 @@ export function AuthScreen({
         </aside>
         <section className="auth-panel">
           <p className="eyebrow">{register ? m.accountStep : m.portal}</p>
-          <h1>{register ? m.registerTitle : forgot || reset ? m.resetTitle : m.loginTitle}</h1>
+          <h1>{register ? (accountType === 'technology' ? (locale === 'de' ? 'Ihr Konto als Technologieunternehmen.' : 'Your technology company account.') : m.registerTitle) : forgot || reset ? m.resetTitle : m.loginTitle}</h1>
           <p>{register ? m.registerBody : forgot ? m.resetBody : m.loginBody}</p>
           {!enabled && (
             <div className="notice warning">
@@ -54,6 +56,7 @@ export function AuthScreen({
             disabled={!enabled}
           >
             <div className="form-grid">
+              {register && <input type="hidden" name="account_type" value={accountType} />}
               {register && (
                 <>
                   <Field name="first_name" locale={locale} required autoComplete="given-name" />

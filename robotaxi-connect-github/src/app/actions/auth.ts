@@ -35,6 +35,7 @@ export async function authAction(
         options: {
           emailRedirectTo: `${appUrl()}/${locale}/auth/callback`,
           data: { first_name: data.first_name, last_name: data.last_name, locale,
+            account_type: form.get('account_type') === 'technology' ? 'technology' : 'taxi',
             legal_version: legalVersion, terms_accepted_at: new Date().toISOString() },
         },
       });
