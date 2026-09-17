@@ -80,6 +80,7 @@ export type Company = {
   locale: Locale;
 };
 export type Fleet = {
+  qualification?: Record<string,string>;
   company_id: string;
   current_vehicles: number;
   potential_vehicles: number;

@@ -1,3 +1,4 @@
+import { fleetQuestions } from '@/config/fleet-questions';
 import { z } from 'zod';
 import {
   companyTypes,
@@ -40,6 +41,7 @@ export const companySchema = z.object({
   email: z.union([z.literal(''), z.email().max(254)]).default(''),
   website,
   company_type: z.enum(companyTypes),
+  qualification: z.object(Object.fromEntries(fleetQuestions.map(q=>[q.key,optionalText(2500)]))).default({}),
   current_vehicles: whole(),
   potential_vehicles: whole(),
   timeline: z.enum(timelines),

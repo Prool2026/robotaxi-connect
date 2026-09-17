@@ -123,7 +123,7 @@ export async function loadPortal(
     db.from('companies').select(companyColumns).eq('id', companyId).single(),
     db
       .from('fleet_profiles')
-      .select('company_id,current_vehicles,potential_vehicles,timeline,requirements')
+      .select('company_id,current_vehicles,potential_vehicles,timeline,requirements,qualification')
       .eq('company_id', companyId)
       .single(),
     db

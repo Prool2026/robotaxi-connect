@@ -2,6 +2,7 @@
 import { revalidatePath } from 'next/cache';
 import { redirect, unstable_rethrow } from 'next/navigation';
 import { z } from 'zod';
+import { fleetQuestions } from '@/config/fleet-questions';
 import { requireAdmin, requireCompany, requireIdentity } from '@/lib/auth';
 import { localeOf } from '@/lib/domain';
 import {
@@ -68,7 +69,7 @@ export async function saveCompanyAction(
       : 'companyId' in identity
         ? String(identity.companyId)
         : null;
-    const input = companySchema.parse({ ...values(form), locale, legal_version: legalVersion });
+    const input = companySchema.parse({ ...values(form), qualification:Object.fromEntries(fleetQuestions.map(q=>[q.key,form.get(q.key)||''])), locale, legal_version: legalVersion });
     if (!admin && !cid && !input.consent) return { error: 'invalid', fields: ['consentCompany'] };
     if (admin && !input.email) return { error: 'invalid', fields: ['email'] };
     const { data, error } = await identity.db.rpc('save_company', { input, company_uuid: cid });

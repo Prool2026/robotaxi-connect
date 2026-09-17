@@ -119,7 +119,7 @@ test('PostgreSQL migrations, tenant isolation and business transactions', async 
           () => asUser(userA, () => rpc('save_company', { ...company('A'), consent: false })),
           /CONSENT_REQUIRED/,
         );
-        a = await asUser(userA, () => rpc('save_company', company('Company A')));
+        a = await asUser(userA, () => rpc('save_company', {...company('Company A'),qualification:{regions:'Herrenberg',pilot_size:'2 vehicles'}}));
         b = await asUser(userB, () => rpc('save_company', company('Company B')));
         const saved = await db.query<{ status: string; email: string }>(
           'select status,email from companies where id=$1',
@@ -127,6 +127,9 @@ test('PostgreSQL migrations, tenant isolation and business transactions', async 
         );
         assert.equal(saved.rows[0].status, 'PENDING_APPROVAL');
         assert.equal(saved.rows[0].email, 'a@example.test');
+        const qualification=await asUser(userA,()=>db.query<{qualification:{regions:string}}>('select qualification from fleet_profiles where company_id=$1',[a]));
+        assert.equal(qualification.rows[0].qualification.regions,'Herrenberg');
+        await assert.rejects(()=>asUser(userA,()=>db.query('select save_company($1::jsonb,$2)',[JSON.stringify({...company('Company A'),qualification:{regions:{bad:true}}}),a])),/INVALID_INPUT/);
         await assert.rejects(
           () => asUser(userA, () => rpc('save_company', company('Duplicate'))),
           /ALREADY_REGISTERED/,
@@ -562,7 +565,7 @@ test('PostgreSQL migrations, tenant isolation and business transactions', async 
       await db.query('insert into auth.users(id,email,email_confirmed_at,raw_user_meta_data) values($1,$2,now(),$3)',[tech,'tech@example.test',JSON.stringify({account_type:'technology',role:'ADMIN'})]);
       assert.equal((await db.query<{role:string}>('select role from profiles where id=$1',[tech])).rows[0].role,'PROVIDER_USER');
       await asUser(tech,()=>rpc('save_provider_account',{company_name:'Tech Ltd',email:'tech@example.test',solution:'Autonomy'}));
-      await asUser(tech,()=>rpc('save_provider_account',{company_name:'Tech Ltd',email:'tech@example.test',solution:'Autonomy',qualification:{use_cases:'Taxi pilots',training_support:'Training required'}}));
+      await asUser(tech,()=>rpc('save_provider_account',{company_name:'Tech Ltd',email:'tech@example.test',solution:'Autonomy',qualification:{use_cases:'Taxi pilots',training_support:'Training required',odd:'Urban roads',business_model:'Leasing'}}));
       await asUser(tech,async()=>assert.equal((await db.query<{qualification:{use_cases:string}}>('select qualification from provider_accounts')).rows[0].qualification.use_cases,'Taxi pilots'));
       await assert.rejects(()=>asUser(tech,()=>rpc('save_provider_account',{company_name:'Tech Ltd',email:'tech@example.test',qualification:{use_cases:{bad:true}}})),/INVALID_INPUT/);
 

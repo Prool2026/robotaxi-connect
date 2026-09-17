@@ -1,3 +1,4 @@
+import { fleetQuestions } from '@/config/fleet-questions';
 import { ActionForm } from './action-form';
 import { Field, Checkbox } from './fields';
 import { messages } from '@/i18n/messages';
@@ -147,6 +148,7 @@ export function CompanyForm({
           />
         </div>
       </section>
+      <section className="form-section"><h3>{locale==='de'?'Ihr Betrieb und mögliche Pilotprojekte':'Your operations and potential pilots'}</h3><p>{locale==='de'?'Diese ergänzenden Angaben helfen uns bei der persönlichen Partnersuche. Ungeklärte Punkte können Sie offenlassen und später ergänzen. Bitte keine Daten einzelner Fahrgäste eintragen.':'These optional details help us find suitable partners. You can leave undecided points blank and update them later. Please do not enter individual passenger data.'}</p><div className="form-grid">{fleetQuestions.map(q=><label className="field" style={{gridColumn:"1 / -1"}} key={q.key}>{q[locale]}<textarea name={q.key} defaultValue={fleet?.qualification?.[q.key]||''} rows={3} maxLength={2500}/></label>)}</div></section>
       {!company && !admin && (
         <Checkbox name="consent" locale={locale} text="consentCompany" required />
       )}
