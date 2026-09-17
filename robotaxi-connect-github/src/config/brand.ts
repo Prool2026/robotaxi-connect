@@ -3,7 +3,7 @@ export const brand = {
   legalName: process.env.ROBOTAXI_LEGAL_NAME || '',
   domain: process.env.ROBOTAXI_BRAND_DOMAIN || '',
   supportEmail: process.env.ROBOTAXI_SUPPORT_EMAIL || '',
-  logo: process.env.ROBOTAXI_LOGO || '/robotaxi-logo.png',
+  logo: `${process.env.ROBOTAXI_LOGO || '/robotaxi-logo.png'}${(process.env.ROBOTAXI_LOGO || '').includes('?') ? '&' : '?'}v=20260917-new-logo`,
   emailFrom: process.env.ROBOTAXI_EMAIL_FROM || '',
   claim: {
     de: 'Die Verbindung zwischen Taxiunternehmen und autonomer Mobilität.',
