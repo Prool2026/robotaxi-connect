@@ -45,6 +45,8 @@ end $$;
 -- A deletion is tied to the caller, never to a user ID supplied by the browser.
 create table private.account_deletions(user_id uuid primary key, company_id uuid, created_at timestamptz not null default now());
 create table private.account_purge_context(tx bigint primary key, user_id uuid not null);
+alter table private.account_deletions enable row level security;
+alter table private.account_purge_context enable row level security;
 create function private.recent_password_login() returns void language plpgsql security definer set search_path='' as $$
 begin
   if not exists(select 1 from public.profiles p join auth.users u on u.id=p.id where p.id=auth.uid() and p.role in ('COMPANY_USER','PROVIDER_USER') and u.email_confirmed_at is not null) then raise exception 'FORBIDDEN' using errcode='42501'; end if;
