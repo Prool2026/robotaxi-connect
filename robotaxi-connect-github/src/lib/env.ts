@@ -30,4 +30,4 @@ export function appUrl() {
 }
 export const registrationEnabled = () =>
   isConfigured() &&
-  (process.env.NODE_ENV !== 'production' || process.env.ROBOTAXI_LEGAL_READY === 'true');
+  process.env.ROBOTAXI_REGISTRATION_PAUSED !== 'true';

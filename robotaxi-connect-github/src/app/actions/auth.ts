@@ -8,6 +8,7 @@ import { registerSchema, credentialsSchema } from '@/lib/validation';
 import { localeOf } from '@/lib/domain';
 import { authRateLimit } from '@/lib/rate-limit';
 import type { ActionState } from '@/lib/action-state';
+import { legalVersion } from '@/config/legal-content';
 export async function authAction(
   mode: string,
   lang: string,
@@ -33,7 +34,8 @@ export async function authAction(
         password: data.password,
         options: {
           emailRedirectTo: `${appUrl()}/${locale}/auth/callback`,
-          data: { first_name: data.first_name, last_name: data.last_name, locale },
+          data: { first_name: data.first_name, last_name: data.last_name, locale,
+            legal_version: legalVersion, terms_accepted_at: new Date().toISOString() },
         },
       });
       if (error) return { error: error.status === 429 ? 'rateLimited' : 'error' };

@@ -114,7 +114,7 @@ export const de = {
   configuration: 'Verbindung noch nicht eingerichtet',
   configurationBody:
     'Für echte Accounts wird ein eigenes Supabase-Projekt benötigt. Die Registrierung ist bis zur Einrichtung deaktiviert.',
-  legalNotReady: 'Die Registrierung wird nach Freigabe der Rechtstexte geöffnet.',
+  legalNotReady: 'Die Registrierung ist vorübergehend pausiert. Kontaktieren Sie uns per E-Mail.',
   rateLimited: 'Zu viele Versuche. Bitte versuchen Sie es später erneut.',
   authError:
     'Anmeldung nicht möglich. Prüfen Sie Ihre Zugangsdaten und bestätigen Sie Ihre E-Mail-Adresse.',
@@ -499,7 +499,7 @@ export const en: Record<MessageKey, string> = {
   configuration: 'Connection not yet configured',
   configurationBody:
     'Real accounts require a separate Supabase project. Registration is disabled until setup is complete.',
-  legalNotReady: 'Registration will open after the legal texts have been approved.',
+  legalNotReady: 'Registration is temporarily paused. Please contact us by email.',
   rateLimited: 'Too many attempts. Please try again later.',
   authError: 'Unable to sign in. Check your credentials and verify your email address.',
   accountStep: '01 · Your account',

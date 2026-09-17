@@ -17,6 +17,7 @@ import {
   validateUpload,
 } from '@/lib/validation';
 import { registrationEnabled } from '@/lib/env';
+import { legalVersion } from '@/config/legal-content';
 import type { ActionState } from '@/lib/action-state';
 type DbError = { message: string } | null;
 function check(error: DbError) {
@@ -67,7 +68,7 @@ export async function saveCompanyAction(
       : 'companyId' in identity
         ? String(identity.companyId)
         : null;
-    const input = companySchema.parse({ ...values(form), locale, legal_version: '2026-09-v1' });
+    const input = companySchema.parse({ ...values(form), locale, legal_version: legalVersion });
     if (!admin && !cid && !input.consent) return { error: 'invalid', fields: ['consentCompany'] };
     if (admin && !input.email) return { error: 'invalid', fields: ['email'] };
     const { data, error } = await identity.db.rpc('save_company', { input, company_uuid: cid });
