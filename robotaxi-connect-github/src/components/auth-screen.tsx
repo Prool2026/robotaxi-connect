@@ -43,7 +43,7 @@ export function AuthScreen({
         <section className="auth-panel">
           <p className="eyebrow">{register ? m.accountStep : m.portal}</p>
           <h1>{register ? (accountType === 'technology' ? (locale === 'de' ? 'Ihr Konto als Technologieunternehmen.' : 'Your technology company account.') : m.registerTitle) : forgot || reset ? m.resetTitle : m.loginTitle}</h1>
-          <p>{register ? m.registerBody : forgot ? m.resetBody : m.loginBody}</p>
+          <p>{register ? (accountType === 'technology' ? (locale === 'de' ? 'Legen Sie zunächst Ihr Konto an. Nach der E-Mail-Bestätigung ergänzen Sie Ihr Unternehmensprofil mit Angaben zu Einsatzmöglichkeiten, Fahrzeugen, Voraussetzungen, Schulungen, Genehmigungen und Zusammenarbeit.' : 'Create your account first. After confirming your email, complete your company profile with use cases, vehicles, requirements, training, approvals and partnership details.') : m.registerBody) : forgot ? m.resetBody : m.loginBody}</p>
           {!enabled && (
             <div className="notice warning">
               {!isConfigured() ? m.configurationBody : m.legalNotReady}

@@ -562,6 +562,10 @@ test('PostgreSQL migrations, tenant isolation and business transactions', async 
       await db.query('insert into auth.users(id,email,email_confirmed_at,raw_user_meta_data) values($1,$2,now(),$3)',[tech,'tech@example.test',JSON.stringify({account_type:'technology',role:'ADMIN'})]);
       assert.equal((await db.query<{role:string}>('select role from profiles where id=$1',[tech])).rows[0].role,'PROVIDER_USER');
       await asUser(tech,()=>rpc('save_provider_account',{company_name:'Tech Ltd',email:'tech@example.test',solution:'Autonomy'}));
+      await asUser(tech,()=>rpc('save_provider_account',{company_name:'Tech Ltd',email:'tech@example.test',solution:'Autonomy',qualification:{use_cases:'Taxi pilots',training_support:'Training required'}}));
+      await asUser(tech,async()=>assert.equal((await db.query<{qualification:{use_cases:string}}>('select qualification from provider_accounts')).rows[0].qualification.use_cases,'Taxi pilots'));
+      await assert.rejects(()=>asUser(tech,()=>rpc('save_provider_account',{company_name:'Tech Ltd',email:'tech@example.test',qualification:{use_cases:{bad:true}}})),/INVALID_INPUT/);
+
       await asUser(providerUser, async()=>assert.equal((await db.query('select * from provider_accounts')).rows.length,0));
       await asUser(tech, async()=>{
         assert.equal((await db.query('select * from provider_accounts')).rows.length,1);

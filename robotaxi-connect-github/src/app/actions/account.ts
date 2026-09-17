@@ -3,6 +3,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect, unstable_rethrow } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { z } from 'zod';
+import { providerQuestions } from '@/config/provider-questions';
 import { requireIdentity } from '@/lib/auth';
 import { localeOf, isAdmin } from '@/lib/domain';
 import { appUrl } from '@/lib/env';
@@ -38,7 +39,8 @@ export async function accountAction(kind: string, lang: string, _state: AccountS
   } else if(kind==='provider') {
    if(identity.profile.role!=='PROVIDER_USER') throw Error('FORBIDDEN');
    const input=z.object({company_name:z.string().trim().min(2).max(200),email:z.email().max(254),phone:z.string().max(50),address:z.string().max(500),website:z.union([z.literal(''),z.url().regex(/^https?:\/\//)]),solution:z.string().trim().min(1).max(5000),markets:z.string().max(2000)}).parse(Object.fromEntries(form));
-   const {error}=await db.rpc('save_provider_account',{input}); if(error) throw error;
+   const qualification=Object.fromEntries(providerQuestions.map(q=>[q.key,z.string().trim().min(1).max(2500).parse(form.get(q.key))]));
+   const {error}=await db.rpc('save_provider_account',{input:{...input,qualification}}); if(error) throw error;
   } else if(kind==='delete') {
    if(isAdmin(identity.profile.role)) return {error:de?'Administratorkonten können hier nicht gelöscht werden.':'Administrator accounts cannot be deleted here.'};
    if(form.get('confirm_delete')!=='on' || form.get('delete_word')!=='DELETE') return {error:de?'Bitte die Löschung bestätigen und DELETE eingeben.':'Please confirm deletion and type DELETE.'};
