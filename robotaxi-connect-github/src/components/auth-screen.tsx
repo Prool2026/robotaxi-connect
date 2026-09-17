@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowUpRight, ShieldCheck } from 'lucide-react';
+import { CarFront, Cpu, ShieldCheck } from 'lucide-react';
 import { brand } from '@/config/brand';
 import { PublicHeader, PublicFooter } from './public-layout';
 import { ActionForm } from './action-form';
@@ -26,18 +26,19 @@ export function AuthScreen({
     <>
       <PublicHeader locale={locale} />
       <main id="main" className="auth-layout container">
-        <aside className="auth-aside">
+        <aside className="auth-aside auth-connection-aside">
           <p className="eyebrow">{m.eyebrow}</p>
           <h2>{brand.claim[locale]}</h2>
-          <div className="auth-lines" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-            <ArrowUpRight size={45} />
+          <div className="connection-diagram" aria-label={locale === 'de' ? 'Robotaxi Connect vermittelt persönlich zwischen Flottenunternehmen und Technologiepartnern.' : 'Robotaxi Connect personally connects fleet operators and technology partners.'}>
+            <div className="connection-party"><CarFront size={25} aria-hidden="true"/><div><strong>{locale === 'de' ? 'Taxi- & Flottenunternehmen' : 'Taxi & fleet operators'}</strong><span>{locale === 'de' ? 'Betrieb, Fahrzeuge, Erfahrung' : 'Operations, vehicles, experience'}</span></div></div>
+            <div className="connection-line" aria-hidden="true"/>
+            <div className="connection-hub"><img src={brand.logo} width="52" height="52" alt=""/><div><span className="connection-caption">{locale === 'de' ? 'DIE PERSÖNLICHE VERBINDUNG' : 'THE PERSONAL CONNECTION'}</span><strong>Robotaxi Connect</strong><span>{locale === 'de' ? 'Verstehen. Passende Partner finden. Zusammenbringen.' : 'Understand. Find the right partners. Connect.'}</span></div></div>
+            <div className="connection-line" aria-hidden="true"/>
+            <div className="connection-party"><Cpu size={25} aria-hidden="true"/><div><strong>{locale === 'de' ? 'Technologiepartner' : 'Technology partners'}</strong><span>{locale === 'de' ? 'Autonome Systeme & Lösungen' : 'Autonomous systems & solutions'}</span></div></div>
           </div>
           <p>
             <ShieldCheck size={20} />
-            {m.futureNote}
+            {locale === 'de' ? 'Persönlich vermittelt. Vertraulich betreut. Kontaktweitergabe nur nach Zustimmung.' : 'Personal matching. Confidential support. Contact details shared only with approval.'}
           </p>
         </aside>
         <section className="auth-panel">

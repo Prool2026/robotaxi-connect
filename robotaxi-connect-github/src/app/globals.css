@@ -852,30 +852,35 @@ details > p {
   font-size: 11px;
   z-index: 1;
 }
-.auth-lines {
-  position: absolute;
-  inset: 50% 0 0;
-}
-.auth-lines span {
-  position: absolute;
-  width: 400px;
-  height: 180px;
-  border: 1px solid #a7bc9860;
-  transform: rotate(-30deg);
-  border-radius: 100px;
-  left: 15%;
-  top: 0;
-}
-.auth-lines span:nth-child(2) {
-  top: 40px;
-}
-.auth-lines span:nth-child(3) {
-  top: 80px;
-}
-.auth-lines svg {
-  position: absolute;
-  left: 45%;
-  top: 35%;
+/* The intermediary is the focal point, with no suggestion of direct network access. */
+.auth-connection-aside { background: radial-gradient(ellipse at 90% 50%, #cfdfce 0%, transparent 65%), #e4ebdd; }
+.auth-connection-aside h2 { font-size: clamp(28px, 3vw, 40px); }
+.auth-connection-aside > p:last-child { padding-top: 24px; line-height: 1.65; color: #50665a; }
+.auth-connection-aside > p:last-child svg { flex-shrink: 0; }
+.connection-diagram { margin: 32px 0 10px; position: relative; }
+.connection-party, .connection-hub { display: flex; align-items: center; gap: 16px; border-radius: 16px; padding: 20px; }
+.connection-party { background: #ffffffa8; border: 1px solid #ffffffc9; margin: 0 14px; }
+.connection-party > svg { flex-shrink: 0; color: #45675b; }
+.connection-party strong { display: block; font-size: 15px; font-weight: 600; }
+.connection-party span { display: block; font-size: 12px; color: #61756a; margin-top: 5px; line-height: 1.5; }
+.connection-line { width: 1px; height: 25px; margin: 0 auto; background: #8aa594; }
+.connection-hub { background: #193f35; color: #fff; box-shadow: 0 12px 30px #193f351a; border: 1px solid #416359; }
+.connection-hub img { flex-shrink: 0; }
+.connection-hub strong { display: block; font-size: 23px; letter-spacing: -.04em; margin: 6px 0; }
+.connection-hub span { display: block; font-size: 12px; line-height: 1.6; color: #d3e3d1; }
+.connection-hub .connection-caption { font-size: 9px; letter-spacing: .12em; }
+@media (max-width: 700px) {
+  .auth-aside.auth-connection-aside { display: flex; padding: 22px; }
+  .auth-aside.auth-connection-aside h2 { font-size: 25px; margin-bottom: 0; }
+  .auth-connection-aside .eyebrow { display: none; }
+  .connection-diagram { margin-top: 22px; }
+  .connection-party, .connection-hub { padding: 13px; gap: 10px; }
+  .connection-party { margin: 0 8px; }
+  .connection-party strong { font-size: 13px; }
+  .connection-hub strong { font-size: 21px; }
+  .connection-hub img { width: 40px; height: 40px; }
+  .connection-line { height: 16px; }
+  .auth-connection-aside > p:last-child { padding-top: 12px; margin-bottom: 0; }
 }
 .auth-panel {
   padding: 24px 0;
